@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cug.ssm.mapper.StudentBasicInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.cug.ssm.po.StudentBasicInfo" >
+    <id column="stu_id" property="stuId" jdbcType="CHAR" />
+    <result column="stu_name" property="stuName" jdbcType="CHAR" />
+    <result column="stu_sex" property="stuSex" jdbcType="CHAR" />
+    <result column="stu_academy" property="stuAcademy" jdbcType="CHAR" />
+    <result column="stu_dept" property="stuDept" jdbcType="CHAR" />
+    <result column="stu_classid" property="stuClassid" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stu_id, stu_name, stu_sex, stu_academy, stu_dept, stu_classid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from student_basic_info
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from student_basic_info
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cug.ssm.po.StudentBasicInfo" >
+    insert into student_basic_info (stu_id, stu_name, stu_sex, 
+      stu_academy, stu_dept, stu_classid
+      )
+    values (#{stuId,jdbcType=CHAR}, #{stuName,jdbcType=CHAR}, #{stuSex,jdbcType=CHAR}, 
+      #{stuAcademy,jdbcType=CHAR}, #{stuDept,jdbcType=CHAR}, #{stuClassid,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cug.ssm.po.StudentBasicInfo" >
+    insert into student_basic_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        stu_id,
+      </if>
+      <if test="stuName != null" >
+        stu_name,
+      </if>
+      <if test="stuSex != null" >
+        stu_sex,
+      </if>
+      <if test="stuAcademy != null" >
+        stu_academy,
+      </if>
+      <if test="stuDept != null" >
+        stu_dept,
+      </if>
+      <if test="stuClassid != null" >
+        stu_classid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        #{stuId,jdbcType=CHAR},
+      </if>
+      <if test="stuName != null" >
+        #{stuName,jdbcType=CHAR},
+      </if>
+      <if test="stuSex != null" >
+        #{stuSex,jdbcType=CHAR},
+      </if>
+      <if test="stuAcademy != null" >
+        #{stuAcademy,jdbcType=CHAR},
+      </if>
+      <if test="stuDept != null" >
+        #{stuDept,jdbcType=CHAR},
+      </if>
+      <if test="stuClassid != null" >
+        #{stuClassid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cug.ssm.po.StudentBasicInfo" >
+    update student_basic_info
+    <set >
+      <if test="stuName != null" >
+        stu_name = #{stuName,jdbcType=CHAR},
+      </if>
+      <if test="stuSex != null" >
+        stu_sex = #{stuSex,jdbcType=CHAR},
+      </if>
+      <if test="stuAcademy != null" >
+        stu_academy = #{stuAcademy,jdbcType=CHAR},
+      </if>
+      <if test="stuDept != null" >
+        stu_dept = #{stuDept,jdbcType=CHAR},
+      </if>
+      <if test="stuClassid != null" >
+        stu_classid = #{stuClassid,jdbcType=CHAR},
+      </if>
+    </set>
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cug.ssm.po.StudentBasicInfo" >
+    update student_basic_info
+    set stu_name = #{stuName,jdbcType=CHAR},
+      stu_sex = #{stuSex,jdbcType=CHAR},
+      stu_academy = #{stuAcademy,jdbcType=CHAR},
+      stu_dept = #{stuDept,jdbcType=CHAR},
+      stu_classid = #{stuClassid,jdbcType=CHAR}
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </update>
+  
+  
+  <!-- **************************************************************************************** -->
+  <select id="selectStudentAll" parameterType="com.cug.ssm.other.Page" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student_basic_info limit #{startRow},#{endRow}
+  </select>
+  <!-- **************************************************************************************** -->
+  <select id="getStudentTotal" resultType="int">
+		select count(*) from student_basic_info
+	</select>
+  
+  
+  
+</mapper>

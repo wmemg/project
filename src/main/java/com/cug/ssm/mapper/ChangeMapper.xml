@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cug.ssm.mapper.ChangeMapper" >
+  <resultMap id="BaseResultMap" type="com.cug.ssm.po.Change" >
+    <id column="stu_id" property="stuId" jdbcType="CHAR" />
+    <result column="stu_name" property="stuName" jdbcType="CHAR" />
+    <result column="stu_classid" property="stuClassid" jdbcType="CHAR" />
+    <result column="change_status" property="changeStatus" jdbcType="CHAR" />
+    <result column="change_des" property="changeDes" jdbcType="CHAR" />
+    <result column="date" property="date" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stu_id, stu_name, stu_classid, change_status, change_des, date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from change_dt
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from change_dt
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cug.ssm.po.Change" >
+    insert into change_dt (stu_id, stu_name, stu_classid, 
+      change_status, change_des, date
+      )
+    values (#{stuId,jdbcType=CHAR}, #{stuName,jdbcType=CHAR}, #{stuClassid,jdbcType=CHAR}, 
+      #{changeStatus,jdbcType=CHAR}, #{changeDes,jdbcType=CHAR}, #{date,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cug.ssm.po.Change" >
+    insert into change_dt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        stu_id,
+      </if>
+      <if test="stuName != null" >
+        stu_name,
+      </if>
+      <if test="stuClassid != null" >
+        stu_classid,
+      </if>
+      <if test="changeStatus != null" >
+        change_status,
+      </if>
+      <if test="changeDes != null" >
+        change_des,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        #{stuId,jdbcType=CHAR},
+      </if>
+      <if test="stuName != null" >
+        #{stuName,jdbcType=CHAR},
+      </if>
+      <if test="stuClassid != null" >
+        #{stuClassid,jdbcType=CHAR},
+      </if>
+      <if test="changeStatus != null" >
+        #{changeStatus,jdbcType=CHAR},
+      </if>
+      <if test="changeDes != null" >
+        #{changeDes,jdbcType=CHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cug.ssm.po.Change" >
+    update change_dt
+    <set >
+      <if test="stuName != null" >
+        stu_name = #{stuName,jdbcType=CHAR},
+      </if>
+      <if test="stuClassid != null" >
+        stu_classid = #{stuClassid,jdbcType=CHAR},
+      </if>
+      <if test="changeStatus != null" >
+        change_status = #{changeStatus,jdbcType=CHAR},
+      </if>
+      <if test="changeDes != null" >
+        change_des = #{changeDes,jdbcType=CHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=CHAR},
+      </if>
+    </set>
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cug.ssm.po.Change" >
+    update change_dt
+    set stu_name = #{stuName,jdbcType=CHAR},
+      stu_classid = #{stuClassid,jdbcType=CHAR},
+      change_status = #{changeStatus,jdbcType=CHAR},
+      change_des = #{changeDes,jdbcType=CHAR},
+      date = #{date,jdbcType=CHAR}
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </update>
+  
+  
+  
+   <!-- /////////////////////////////////////////////////////////////////// -->
+  
+  
+  
+<select id="serachChange" parameterType="java.lang.String" resultMap="BaseResultMap">
+<!-- select * from db_test.change_dt where change_dt.stu_id='${stu_id}' -->
+select 
+    <include refid="Base_Column_List" />
+    from change_dt
+    where stu_id = #{stuId,jdbcType=CHAR}
+</select>
+<!-- ****************************************************************************************************** --> 
+<select id="serachChangeAll" resultMap="BaseResultMap">
+<!-- select * from db_test.change_dt where change_dt.stu_id='${stu_id}' -->
+select 
+    <include refid="Base_Column_List" />
+    from change_dt
+</select>
+<!-- ****************************************************************************************************** --> 
+<select id="serachChangeClassAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+select 
+    <include refid="Base_Column_List" />
+    from change_dt
+    where change_status = #{changeStatus,jdbcType=CHAR} 
+</select>
+<!-- ****************************************************************************************************** --> 
+ 
+<!-- ****************************************************************************************************** --> 
+<insert id="insertNewChangeClass" parameterType="com.cug.ssm.po.Change" >
+    insert into change_dt (stu_id, stu_name, stu_classid, 
+      change_status, change_des, date
+      )
+    values (#{stuId,jdbcType=CHAR}, #{stuName,jdbcType=CHAR}, #{stuClassid,jdbcType=CHAR}, 
+      #{changeStatus,jdbcType=CHAR}, #{changeDes,jdbcType=CHAR}, #{date,jdbcType=DATE}
+      )
+  </insert>
+  
+  <!-- ****************************************************************************************************** --> 
+  <select id="serachChangeSchoolAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+select 
+    <include refid="Base_Column_List" />
+    from change_dt
+    where change_status = #{changeStatus,jdbcType=CHAR} 
+</select>
+
+<!-- ****************************************************************************************************** --> 
+  <select id="reEntrySchoolAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+select 
+    <include refid="Base_Column_List" />
+    from change_dt
+    where change_status = #{changeStatus,jdbcType=CHAR} 
+</select>
+
+<!-- ****************************************************************************************************** --> 
+  <select id="stopSchoolAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+select 
+    <include refid="Base_Column_List" />
+    from change_dt
+    where change_status = #{changeStatus,jdbcType=CHAR} 
+</select>
+  
+<!-- ****************************************************************************************************** --> 
+<select id="leaveSchoolAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+select 
+    <include refid="Base_Column_List" />
+    from change_dt
+    where change_status = #{changeStatus,jdbcType=CHAR} 
+</select>
+  
+  
+  
+</mapper>

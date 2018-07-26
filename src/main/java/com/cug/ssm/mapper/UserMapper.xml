@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cug.ssm.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.cug.ssm.po.User" >
+    <id column="username" property="username" jdbcType="CHAR" />
+    <result column="password" property="password" jdbcType="CHAR" />
+    <result column="permission" property="permission" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    username, password, permission
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where username = #{username,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_info
+    where username = #{username,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cug.ssm.po.User" >
+    insert into user_info (username, password, permission
+      )
+    values (#{username,jdbcType=CHAR}, #{password,jdbcType=CHAR}, #{permission,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cug.ssm.po.User" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="username != null" >
+        #{username,jdbcType=CHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=CHAR},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cug.ssm.po.User" >
+    update user_info
+    <set >
+      <if test="password != null" >
+        password = #{password,jdbcType=CHAR},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=CHAR},
+      </if>
+    </set>
+    where username = #{username,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cug.ssm.po.User" >
+    update user_info
+    set password = #{password,jdbcType=CHAR},
+      permission = #{permission,jdbcType=CHAR}
+    where username = #{username,jdbcType=CHAR}
+  </update>
+  
+  <!-- **************************************************************************************** -->
+  <select id="selectUserAll" parameterType="com.cug.ssm.other.Page" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info limit #{startRow},#{endRow}
+  </select>
+  <!-- **************************************************************************************** -->
+  <select id="getUserTotal" resultType="int">
+		select count(*) from user_info
+	</select>
+  
+  
+  
+</mapper>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cug.ssm.mapper.GradeMapper" >
+  <resultMap id="BaseResultMap" type="com.cug.ssm.po.Grade" >
+    <id column="stu_id" property="stuId" jdbcType="CHAR" />
+    <id column="course_id" property="courseId" jdbcType="CHAR" />
+    <result column="stu_name" property="stuName" jdbcType="CHAR" />
+    <result column="stu_classid" property="stuClassid" jdbcType="CHAR" />
+    <result column="grade" property="grade" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stu_id, course_id, stu_name, stu_classid, grade
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.cug.ssm.po.GradeKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from grade
+    where stu_id = #{stuId,jdbcType=CHAR}
+      and course_id = #{courseId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.cug.ssm.po.GradeKey" >
+    delete from grade
+    where stu_id = #{stuId,jdbcType=CHAR}
+      and course_id = #{courseId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cug.ssm.po.Grade" >
+    insert into grade (stu_id, course_id, stu_name, 
+      stu_classid, grade)
+    values (#{stuId,jdbcType=CHAR}, #{courseId,jdbcType=CHAR}, #{stuName,jdbcType=CHAR}, 
+      #{stuClassid,jdbcType=CHAR}, #{grade,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cug.ssm.po.Grade" >
+    insert into grade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        stu_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="stuName != null" >
+        stu_name,
+      </if>
+      <if test="stuClassid != null" >
+        stu_classid,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        #{stuId,jdbcType=CHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=CHAR},
+      </if>
+      <if test="stuName != null" >
+        #{stuName,jdbcType=CHAR},
+      </if>
+      <if test="stuClassid != null" >
+        #{stuClassid,jdbcType=CHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cug.ssm.po.Grade" >
+    update grade
+    <set >
+      <if test="stuName != null" >
+        stu_name = #{stuName,jdbcType=CHAR},
+      </if>
+      <if test="stuClassid != null" >
+        stu_classid = #{stuClassid,jdbcType=CHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=REAL},
+      </if>
+    </set>
+    where stu_id = #{stuId,jdbcType=CHAR}
+      and course_id = #{courseId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cug.ssm.po.Grade" >
+    update grade
+    set stu_name = #{stuName,jdbcType=CHAR},
+      stu_classid = #{stuClassid,jdbcType=CHAR},
+      grade = #{grade,jdbcType=REAL}
+    where stu_id = #{stuId,jdbcType=CHAR}
+      and course_id = #{courseId,jdbcType=CHAR}
+  </update>
+  
+  
+  
+  
+  <delete id="deleteByStuId" parameterType="java.lang.String" >
+    delete from grade
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </delete>
+ 
+  <select id="selectGradeListByID" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from grade
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </select>
+  
+  <select id="selectGradeListByCourse" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from grade
+    where course_id = #{courseId,jdbcType=CHAR}
+  </select>
+  
+  <!-- **************************************************************************************** -->
+  <select id="getGradetTotal" resultType="int">
+		select count(*) from grade
+	</select>
+	
+	
+<select id="selectGradeList" parameterType="com.cug.ssm.other.Page" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from grade limit #{startRow},#{endRow}
+ </select>
+ 
+ 
+ <select id="selectGradeListByClass" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from grade
+    where stu_classid = #{stuClassid,jdbcType=CHAR}
+  </select>
+  
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cug.ssm.mapper.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.cug.ssm.po.Teacher" >
+    <id column="teacher_id" property="teacherId" jdbcType="CHAR" />
+    <result column="teacher_name" property="teacherName" jdbcType="CHAR" />
+    <result column="course_id" property="courseId" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    teacher_id, teacher_name, course_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where teacher_id = #{teacherId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from teacher
+    where teacher_id = #{teacherId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cug.ssm.po.Teacher" >
+    insert into teacher (teacher_id, teacher_name, course_id
+      )
+    values (#{teacherId,jdbcType=CHAR}, #{teacherName,jdbcType=CHAR}, #{courseId,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cug.ssm.po.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="teacherName != null" >
+        teacher_name,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=CHAR},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=CHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cug.ssm.po.Teacher" >
+    update teacher
+    <set >
+      <if test="teacherName != null" >
+        teacher_name = #{teacherName,jdbcType=CHAR},
+      </if>
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=CHAR},
+      </if>
+    </set>
+    where teacher_id = #{teacherId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cug.ssm.po.Teacher" >
+    update teacher
+    set teacher_name = #{teacherName,jdbcType=CHAR},
+      course_id = #{courseId,jdbcType=CHAR}
+    where teacher_id = #{teacherId,jdbcType=CHAR}
+  </update>
+</mapper>

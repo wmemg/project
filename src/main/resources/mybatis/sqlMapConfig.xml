@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>  
+    <!--
+    由于是spring和mybatis进行整合，所以不需要配置
+     <mappers></mappers>  但是必须满足mapper.xml和mapper.java同名并且在一个目录下
+      --> 
+     <!-- 可以配置别名 -->
+     <!-- 批量扫描别名 -->
+     <typeAliases>
+     	<package name="com.cug.ssm.po"/>
+     </typeAliases>
+     
+     <!-- 可以根据需要配置全局setting -->
+</configuration> 
